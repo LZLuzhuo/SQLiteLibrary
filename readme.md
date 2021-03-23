@@ -1,10 +1,9 @@
-核心库
+sqlite库
 
 # 1. 导包
 
 ```groovy
-implementation 'me.luzhuo.android:lib_core:2.0.1'
-implementation 'me.luzhuo.android:lib_core_ktx:2.0.2'
+implementation 'me.luzhuo.android:lib_sqlite:1.0.4-SNAPSHOT'
 ```
 
 # 2. 使用文档

@@ -22,7 +22,9 @@ import android.text.TextUtils;
 
 import java.util.ArrayList;
 
+import me.luzhuo.lib_sqlite.callback.ISearchHistoryListener;
 import me.luzhuo.lib_sqlite.search_history.bean.SearchHistoryBean;
+import me.luzhuo.lib_sqlite.callback.SearchHistoryEnum;
 
 /**
  * Description:
@@ -33,6 +35,7 @@ import me.luzhuo.lib_sqlite.search_history.bean.SearchHistoryBean;
  **/
 public class SearchHistoryDBManager {
     protected DBOpenHelper dbhelper;
+    private ISearchHistoryListener listener;
 
     public SearchHistoryDBManager(Context context){
         if(dbhelper == null) dbhelper = DBOpenHelper.getInstance(context);
@@ -54,6 +57,8 @@ public class SearchHistoryDBManager {
         db.insert(DBOpenHelper.TABLE_SEARCH_HISTORY_TABLE_NAME, null, values);
 
         db.close();
+
+        if (listener != null) listener.update(SearchHistoryEnum.Add);
     }
 
     /**
@@ -76,6 +81,7 @@ public class SearchHistoryDBManager {
         cursor.close();
         db.close();
 
+        if (listener != null) listener.update(SearchHistoryEnum.Query);
         return arys;
     }
 
@@ -89,5 +95,14 @@ public class SearchHistoryDBManager {
         db.delete(DBOpenHelper.TABLE_SEARCH_HISTORY_TABLE_NAME, DBOpenHelper.TABLE_SEARCH_HISTORY_TYPE + " = ?", new String[]{String.valueOf(type)});
 
         db.close();
+
+        if (listener != null) listener.update(SearchHistoryEnum.Clear);
+    }
+
+    /**
+     * 监听搜索事件
+     */
+    public void setSearchHistoryListener(ISearchHistoryListener listener) {
+        this.listener = listener;
     }
 }

@@ -3,7 +3,7 @@ sqlite库
 # 1. 导包
 
 ```groovy
-implementation 'me.luzhuo.android:lib_sqlite:1.0.4-SNAPSHOT'
+implementation 'me.luzhuo.android:lib_sqlite:1.0.8-SNAPSHOT'
 ```
 
 # 2. 使用文档

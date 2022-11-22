@@ -39,4 +39,14 @@ public class SearchHistoryBean {
         this.id = id;
         return this;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (content == null) return false;
+
+        SearchHistoryBean that = (SearchHistoryBean) o;
+        return type == that.type && content.equals(that.content);
+    }
 }

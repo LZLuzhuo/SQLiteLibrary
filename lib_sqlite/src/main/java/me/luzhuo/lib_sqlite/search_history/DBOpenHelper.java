@@ -51,6 +51,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     public static final String TABLE_SEARCH_HISTORY_TABLE_NAME = "SearchHistory"; // 表名
     public static final String TABLE_SEARCH_HISTORY_TYPE = "type";  // 区分不同的历史记录
     public static final String TABLE_SEARCH_HISTORY_CONTENT = "content";  // 内容
+    public static final String TABLE_SEARCH_HISTORY_UPDATE_TIME = "update_time"; // 更新时间
 
     private DBOpenHelper(Context context) {
         super(context, NAME, null, START_VERSION);
@@ -71,7 +72,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         // 建表 (content字段唯一)
-        db.execSQL("CREATE TABLE " + TABLE_SEARCH_HISTORY_TABLE_NAME + " ( " + TABLE_ID + " integer primary key autoincrement, " + TABLE_SEARCH_HISTORY_TYPE + " integer, " + TABLE_SEARCH_HISTORY_CONTENT + " varchar(50) UNIQUE );");
+        db.execSQL("CREATE TABLE " + TABLE_SEARCH_HISTORY_TABLE_NAME + " ( " + TABLE_ID + " integer primary key autoincrement, " + TABLE_SEARCH_HISTORY_TYPE + " integer, " + TABLE_SEARCH_HISTORY_CONTENT + " varchar(50) UNIQUE, " + TABLE_SEARCH_HISTORY_UPDATE_TIME + " integer);");
         onUpgrade(db, START_VERSION, CURRENT_VERSION);
     }
 

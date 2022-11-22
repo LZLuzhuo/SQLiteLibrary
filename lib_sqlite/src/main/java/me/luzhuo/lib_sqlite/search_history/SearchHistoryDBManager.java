@@ -19,6 +19,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -53,8 +54,9 @@ public class SearchHistoryDBManager {
         ContentValues values = new ContentValues();
         values.put(DBOpenHelper.TABLE_SEARCH_HISTORY_TYPE, bean.type);
         values.put(DBOpenHelper.TABLE_SEARCH_HISTORY_CONTENT, bean.content.trim());
+        values.put(DBOpenHelper.TABLE_SEARCH_HISTORY_UPDATE_TIME, System.currentTimeMillis());
 
-        db.insert(DBOpenHelper.TABLE_SEARCH_HISTORY_TABLE_NAME, null, values);
+        db.replace(DBOpenHelper.TABLE_SEARCH_HISTORY_TABLE_NAME, null, values);
 
         db.close();
 
@@ -70,7 +72,7 @@ public class SearchHistoryDBManager {
         SQLiteDatabase db = dbhelper.getReadableDatabase();
         if(!db.isOpen()) return null;
 
-        Cursor cursor = db.query(DBOpenHelper.TABLE_SEARCH_HISTORY_TABLE_NAME, new String[]{DBOpenHelper.TABLE_ID, DBOpenHelper.TABLE_SEARCH_HISTORY_TYPE, DBOpenHelper.TABLE_SEARCH_HISTORY_CONTENT}, DBOpenHelper.TABLE_SEARCH_HISTORY_TYPE + " = ?", new String[]{String.valueOf(type)}, null, null, DBOpenHelper.TABLE_ID + " desc", String.valueOf(limit)); // desc(倒序)
+        Cursor cursor = db.query(DBOpenHelper.TABLE_SEARCH_HISTORY_TABLE_NAME, new String[]{DBOpenHelper.TABLE_ID, DBOpenHelper.TABLE_SEARCH_HISTORY_TYPE, DBOpenHelper.TABLE_SEARCH_HISTORY_CONTENT}, DBOpenHelper.TABLE_SEARCH_HISTORY_TYPE + " = ?", new String[]{String.valueOf(type)}, null, null, DBOpenHelper.TABLE_SEARCH_HISTORY_UPDATE_TIME + " desc", String.valueOf(limit)); // desc(倒序)
         ArrayList<SearchHistoryBean> arys = new ArrayList<>();
         while(cursor.getCount() > 0 && cursor.moveToNext()){
             int _id = cursor.getInt(cursor.getColumnIndex(DBOpenHelper.TABLE_ID));

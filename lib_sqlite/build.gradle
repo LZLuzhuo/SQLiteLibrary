@@ -25,4 +25,4 @@ android {
 dependencies {}
 
 apply from: 'maven.gradle'
-//apply from: 'jcenter.gradle'
+apply from: 'mavenCentral.gradle'

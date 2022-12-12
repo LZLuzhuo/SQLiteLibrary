@@ -3,12 +3,12 @@ sqlite库
 # 1. 导包
 
 ```groovy
-implementation 'me.luzhuo.android:lib_sqlite:1.0.8-SNAPSHOT'
+implementation 'me.luzhuo.android:lib_sqlite:1.0.9'
 ```
 
 # 2. 使用文档
 
-https://www.yuque.com/luzhuo/library
+https://www.yuque.com/luzhuo/library/lib_sqlite
 
 # 3. 版权
 
